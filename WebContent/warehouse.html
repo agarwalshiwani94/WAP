@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="lib/jquery.js"></script>
+<link href="css/bootstrap.css" rel="stylesheet" />
+<link href="css/index.css" rel="stylesheet" />
+<script src="lib/bootstrap.js"></script>
+<script src="lib/alasql.js"></script>
+<script src="lib/purl.js"></script>
+<script src="js/db.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="viewport" content="width=device-width">
+<title>COMPANY</title>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand">COMPANY</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="index.html">Inventory Management</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>
+							Settings <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a onclick="window.location.reload(true);"><span
+									class="glyphicon glyphicon-refresh"></span> Reload</a></li>
+							<li><a onclick="DB.init();"><span
+									class="glyphicon glyphicon-repeat"></span> Init DB</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a onclick="DB.remove();"><span
+									class="glyphicon glyphicon-trash"></span> Delete DB</a></li>
+						</ul></li>
+				</ul>
+				
+				<div id="sidebar-wrapper">
+                    <span class="glyphicon glyphicon-align-justify white mainMenuIcon hidden"></span>
+                    <ul class="sidebar-nav">
+                        <li><a href="index.html"> Inventory List </a></li>
+                        <li><a href="purchases.html"> Purchase Orders</a></li>
+						<li><a href="sales_orders.html"> Sales Orders</a></li>
+                        <li><a href="warehouse.html"> Warehouse Management </a></li>
+                        <li class="hidden"><a href="suppliers.html"> Suppliers </a></li>
+						<li class="hidden"><a href="customers.html"> Customers </a></li>					
+                  </ul>
+				
+				</div>
+				
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</div>
+	</nav>
+
+	<div class="container">
+		<form action="warehouse.html" class="form-inline text-center">
+			<div class="form-group">
+				<label>Warehouse</label> <select name="q1" class="form-control">
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Classification</label> <select name="q2" class="form-control">
+					<option value="0">All</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Code</label> <input name="q3" type="text"
+					class="form-control" placeholder="Prefix Search">
+			</div>
+			<button type="submit" class="btn btn-primary">
+				<span class="glyphicon glyphicon-search"></span> Search
+			</button>
+		</form>
+		<hr>
+		<br>
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#inventory" data-toggle="tab"> Inventory List</a></li>
+			<li><a href="#purchase" data-toggle="tab"> Purchase Transaction</a></li>
+			<li><a href="#sales" data-toggle="tab"> Sales Transaction</a></li>
+			<li><a href="#transfer" data-toggle="tab">Transfer History</a></li>
+			<li><a href="#reports" data-toggle="tab">Reports</a></li>
+		</ul>
+		
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div class="tab-pane active" id="inventory">
+				<br>
+				<button class="btn btn-sm btn-warning pull-right" id="openCart">View Purchase Cart  <span class="badge badge-sm">0</span></button>
+				<br><br><br>
+				
+				<table class="table table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>Classification</th>
+							<th>Code</th>
+							<th>Price</th>
+							<th>Unit</th>
+							<th>In Stock</th>
+							<th>Available</th>
+							<th>Stock Expected</th>
+							<th>Under Stock</th>
+							<th>Excess Stock</th>
+						</tr>
+					</thead>
+					<tbody id="tbody-stocks"></tbody>
+				</table>
+			</div>
+			<div class="tab-pane" id="purchase">
+			<br>
+				<table class="table table-condensed">
+					<thead>
+						<tr>
+							<th>Order Number</th>
+							<th>Warehouse</th>
+							<th>Item</th>
+							<th>Date</th>
+							<th>Quantity</th>
+							<th>Memo</th>
+							<th>Supplier</th>
+						</tr>
+					</thead>
+					<tbody id="tbody-purchases"></tbody>
+				</table>	
+			</div>
+			<div class="tab-pane" id="sales">
+			<br>
+			<table class="table table-condensed">
+					<thead>
+						<tr>
+							<th>Transaction Id</th>
+							<th>Warehouse</th>
+							<th>Date</th>
+							<th>Quantity</th>
+							<th>Memo</th>
+						</tr>
+					</thead>
+					<tbody id="tbody-sales"></tbody>
+				</table>	
+			</div>
+			<div class="tab-pane" id="transfer">
+			
+			</div>
+			<div class="tab-pane" id="reports">
+			
+			</div>
+		</div>
+		<div id="myModal" class="modal fade" role="dialog">
+  			<div class="modal-dialog">
+    		<!-- Modal content-->
+    			<div class="modal-content">
+     				<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal">&times;</button>
+        				<h4 class="modal-title">Add To Purchase Cart</h4>
+      				</div>
+      				<div class="modal-body">
+        				<h5><b><u>Choose Qty to Order : </b></u></h5>
+        				<table class="table form-inline tableS">
+        					<tbody>
+        						<tr>
+        							<td class="col-sm-2">Min Order Qty : </td>
+        							<td class="col-sm-1" id="minQ"></td>
+        						</tr>
+        						<tr>
+        							<td class="col-sm-2">Max Order Qty : </td>
+        							<td class="col-sm-1" id="maxQ"></td>
+        						</tr>
+        						<tr>
+        							<td class="col-sm-2 hidden">Optimum Order Qty : </td>
+        							<td class="col-sm-1 hidden"></td>
+        						</tr>	
+        						<tr>
+        							<td class="col-sm-2">Enter Order Qty</td>
+        							<td class="col-sm-1"><input type="number" class="verySm form-control input-sm" id="orderQty"></td>
+        						</tr>
+        						<tr>
+        							<td colspan=2 class="warningMsg hidden"><div class="alert alert-danger">Under stock still exists</div></td>
+        						</tr>
+        					</tbody>
+        				 </table>
+        				<br><br>
+        				<h5><b><u>Choose Supplier:</b></u></h5>
+        				<table class="table form-inline">
+        					<thead>
+								<tr class="info">
+									<th></th>
+									<th>Supplier Name</th>
+									<th>Unit Price</th>
+									<th>Lead Time(days)</th>
+								</tr>
+							</thead>
+							<tbody id="tbody-supplier"></tbody>
+        				</table>
+        			<br>
+        			<button class="btn btn-sm btn-primary addToCart">Add To Cart</button>
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      				</div>
+   		 		</div>
+ 	 		</div>
+		</div>
+		
+		<div id="cartModal" class="modal fade" role="dialog">
+  			<div class="modal-dialog">
+    		<!-- Modal content-->
+    			<div class="modal-content">
+     				<div class="modal-header draggable">
+        				<button type="button" class="close" data-dismiss="modal">&times;</button>
+        				<h4 class="modal-title">Add To Purchase Cart</h4>
+      				</div>
+      				<div class="modal-body">
+        				<h5 class="cartItems"><b><u>Items to Purchase:</b></u></h5>
+        				<h5 class="purchaseOrders hidden"><b><u>Purchase Orders Created:</b></u></h5>
+        				<table class="table form-inline cartItems">
+        					<thead>
+								<tr class="info">
+									<th>Item Code</th>
+									<th>Supplier Name</th>
+									<th>Quantity</th>
+									<th>Unit Price</th>
+								</tr>
+							</thead>
+							<tbody id="tbody-cart"></tbody>
+        				</table>
+        				
+        				<table class="table form-inline purchaseOrders hidden">
+        					<thead>
+								<tr class="info">
+									<th>Purchase Id</th>
+									<th>Supplier</th>
+									<th>Status</th>
+        						</tr>
+							</thead>
+							<tbody id="tbody-order"></tbody>
+        				</table>
+        			<br>
+        			<button class="btn btn-sm btn-default createOrder pull-right cartItems">Create Purchase Orders  <span class="glyphicon glyphicon-arrow-right"></span></button>
+        			<button class="btn btn-sm btn-default placeOrder pull-right purchaseOrders hidden">Place Orders</button>
+        			<br><br>
+      				</div>
+   		 		</div>
+ 	 		</div>
+		</div>
+		
+	</div>
+	<script src="js/warehouse.js"></script>
+</body>
+</html>

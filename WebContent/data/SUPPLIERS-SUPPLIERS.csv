@@ -1,0 +1,6 @@
+ID,NUMBER,NAME,PHONE,UNIT,STREET,CITY,COUNTRY,CODE
+1,SUP1,ABC Supplier,93847557,#22-204,abc street,abc city,abc country,293844
+2,SUP2,DEF Supplier,93847557,#12-204,def street,def city,def country,193844
+3,SUP3,GHI Supplier,,,,,,
+4,SUP4,JKL Supplier,,,,,,
+5,SUP5,MNO Supplier,,,,,,

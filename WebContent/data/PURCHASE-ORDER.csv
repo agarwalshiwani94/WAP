@@ -1,0 +1,17 @@
+ID,NUMBER,CONTRACT,ORDER_DATE,STATUS,SUPPLIER,S_ADDRESS,S_PHONE,SHIPPING,SH_ADDRESS,SH_PHONE,BILLING,B_ADDRESS,B_PHONE,EXPECTED_DATE,RECEIVED_DATE
+1,P1,1,2015-11-28,6,1,"#22-204,abc street<br>abc city, abc country<br>293844",93847557,Tokyo,3-2 Kamata Ota-ku,93847593,Tokyo,3-2 Kamata Ota-ku,93847593,2015-12-28,2015-12-28
+2,P2,2,2015-12-01,6,2,"#12-204def street<br>def city, def country<br>193844",93847557,Tokyo,3-2 Kamata Ota-ku,93847593,Tokyo,3-2 Kamata Ota-ku,93847593,2015-12-10,2015-12-10
+3,P3,4,2015-12-12,6,4,,,Tokyo,3-2 Kamata Ota-ku,93847593,Tokyo,3-2 Kamata Ota-ku,93847593,2015-12-22,2015-12-22
+4,P4,5,2015-11-30,6,5,,,Tokyo,3-2 Kamata Ota-ku,93847593,Tokyo,3-2 Kamata Ota-ku,93847593,2015-12-12,2015-12-12
+5,P5,1,2015-12-22,6,1,"#22-204,abc street<br>abc city, abc country<br>293844",93847557,Shanghai,"40 Pan Yu Road, Shanghai",95643549,Shanghai,"40 Pan Yu Road, Shanghai",95643549,2015-12-30,2015-12-30
+6,P6,2,2015-11-28,6,2,"#12-204def street<br>def city, def country<br>193844",93847557,Shanghai,"40 Pan Yu Road, Shanghai",95643549,Shanghai,"40 Pan Yu Road, Shanghai",95643549,2015-12-14,2015-12-14
+7,P7,4,2015-12-01,6,4,,,Shanghai,"40 Pan Yu Road, Shanghai",95643549,Shanghai,"40 Pan Yu Road, Shanghai",95643549,2015-12-14,2015-12-14
+8,P8,5,2015-12-12,6,5,,,Shanghai,"40 Pan Yu Road, Shanghai",95643549,Shanghai,"40 Pan Yu Road, Shanghai",95643549,2015-12-22,2015-12-22
+9,P9,1,2015-11-30,6,1,"#22-204,abc street<br>abc city, abc country<br>293844",93847557,Singapore,100 Havelock Road ,92847587,Singapore,100 Havelock Road ,92847587,2015-12-14,2015-12-14
+10,P10,2,2015-12-22,6,2,"#12-204def street<br>def city, def country<br>193844",93847557,Singapore,100 Havelock Road ,92847587,Singapore,100 Havelock Road ,92847587,2015-12-22,2015-12-22
+11,P11,4,2015-11-28,6,4,,,Singapore,100 Havelock Road ,92847587,Singapore,100 Havelock Road ,92847587,2015-12-14,2015-12-14
+12,P12,5,2015-12-01,6,5,,,Delhi,Chanakyapuri New Delhi 310,99547563,Delhi,Chanakyapuri New Delhi 310,99547563,2015-12-22,2015-12-22
+13,P13,1,2015-12-12,6,1,"#22-204,abc street<br>abc city, abc country<br>293844",93847557,Delhi,Chanakyapuri New Delhi 310,99547563,Delhi,Chanakyapuri New Delhi 310,99547563,2015-12-22,2015-12-22
+14,P14,2,2015-11-30,6,2,"#12-204def street<br>def city, def country<br>193844",93847557,Delhi,Chanakyapuri New Delhi 310,99547563,Delhi,Chanakyapuri New Delhi 310,99547563,2015-12-14,2015-12-14
+15,P15,4,2015-12-22,6,4,,,Delhi,Chanakyapuri New Delhi 310,99547563,Delhi,Chanakyapuri New Delhi 310,99547563,2015-12-30,2015-12-30
+16,P16,1,2016-01-22,6,1,"#22-204,abc street<br>abc city, abc country<br>293844",93847557,Tokyo,3-2 Kamata Ota-ku,93847593,Tokyo,3-2 Kamata Ota-ku,99547563,2016-02-12,2016-02-12

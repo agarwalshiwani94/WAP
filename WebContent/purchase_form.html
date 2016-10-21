@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="lib/jquery.js"></script>
+<link href="css/bootstrap.css" rel="stylesheet" />
+<script src="lib/bootstrap.js"></script>
+<script src="lib/alasql.js"></script>
+<script src="lib/purl.js"></script>
+<script src="js/db.js"></script>
+<link href="css/index.css" rel="stylesheet" />
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
+
+<meta charset="utf-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="viewport" content="width=device-width">
+<title>COMPANY</title>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand">COMPANY</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="index.html">Inventory Management</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>
+							Settings <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a onclick="window.location.reload(true);"><span
+									class="glyphicon glyphicon-refresh"></span> Reload</a></li>
+							<li><a onclick="DB.init();"><span
+									class="glyphicon glyphicon-repeat"></span> Init DB</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a onclick="DB.remove();"><span
+									class="glyphicon glyphicon-trash"></span> Delete DB</a></li>
+						</ul></li>
+				</ul>
+							
+				<div id="sidebar-wrapper">
+                    <span class="glyphicon glyphicon-align-justify white mainMenuIcon hidden"></span>
+                    <ul class="sidebar-nav">
+                        <li><a href="index.html"> Inventory List </a></li>
+                        <li><a href="purchases.html"> Purchase Orders</a></li>
+						<li><a href="sales.html"> Sales Orders</a></li>
+                        <li><a href="warehouse.html"> Warehouse Management </a></li>
+                        <li class="hidden"><a href="suppliers.html"> Suppliers </a></li>
+						<li class="hidden"><a href="customers.html"> Customers </a></li>					
+                  </ul>
+				
+				</div>
+			
+			</div>
+			
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<div class="container">
+		<!-- Bread crumbs -->
+		<ol class="breadcrumb">
+			<li><a href="purchases.html">Purchase Orders List</a></li>
+			<li class="active"><span>Purchase Form</span></li>
+		</ol>
+		
+		<h3>Purchase Order Form </h3>
+		<div class="pull-right">
+			 <button class="btn btn-primary btn-sm saveB">Save</button>
+			 <button class="btn btn-primary btn-sm orderB hidden">Place Order</button>
+		</div>
+		<br>
+		<table class="table form-inline pInfo pform">
+			<tbody class="">
+				<tr>
+					<td class="col-sm-2">Order Id: </td>
+					<td class="col-sm-4" align="left" id="pId"><input type="text" class="form-control"></td>
+				</tr>
+				<tr>
+					<td class="col-sm-2" align="left">Order Status: </td>
+					<td class="col-sm-4" align="left" id="pStatus"><select class="form-control selectpicker" data-width="fit" data-live-search="true" data-size="5" data-actions-box="true"></select></td>
+				</tr>
+				<tr>
+					<td class="col-sm-2" align="left">Order Date: </td>
+					<td class="col-sm-4" align="left" id="pOrderDate"><input type="date" class="form-control"></td>
+				</tr>
+				<tr>
+					<td class="col-sm-2" align="left">Expected Delivery Date: </td>
+					<td class="col-sm-4" align="left" id="pExpectedDate"><input type="date" class="form-control"></td>
+				</tr>
+								<tr>
+					<td class="col-sm-2" align="left">Received Delivery Date: </td>
+					<td class="col-sm-4" align="left" id="pReceivedDate"><input type="date" class="form-control"></td>
+				</tr>
+			</tbody>		
+		</table>
+		
+		<hr>		
+		<br>
+		<div>
+		<table class="table form-inline table-condensed  pform">
+			<thead>
+				<tr>
+					<th colspan="2" rowspan="2" style="vertical-align: top;">Supplier Information</th>
+					<th colspan="2" rowspan="2" style="vertical-align: top;">Shipping Information</th>
+					<th colspan="2" rowspan="2">Billing Information<h6><a href="#" onclick="copyBaddress()">(Copy From Shipping Address)</a></h6> </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="col-sm-1">Supplier: </td>
+					<td class="col-sm-3" align="left" id="suppliers"><select class="form-control selectpicker" data-width="fit" data-live-search="true" data-size="5" data-actions-box="true"></select></td>
+					<td class="col-sm-1" align="left">Ship To: </td>
+					<td class="col-sm-3" align="left" id="shipping"><select class="form-control selectpicker" data-width="fit" data-live-search="true" data-size="10" data-actions-box="true">
+														<optgroup label="Warehouse"></optgroup>
+														<optgroup label="Customer"></optgroup>		
+												   </select></td>						
+					<td class="col-sm-1" align="left" >Bill To: </td>
+					<td class="col-sm-3" align="left" id="billing"><select class="form-control selectpicker" data-width="fit" data-live-search="true" data-size="10" data-actions-box="true"></select></td>
+				</tr>
+				<tr>
+					<td class="col-sm-1" align="left" >Address: </td>
+					<td class="col-sm-3" align="left" id="s_address"><textarea class="form-control" rows="3"></textarea></td>
+					<td class="col-sm-1" align="left">Address: </td>
+					<td class="col-sm-3" align="left" id="sh_address"><textarea class="form-control" rows="3"></textarea></td>
+					<td class="col-sm-1" align="left">Address: </td>
+					<td class="col-sm-3" align="left" id="b_address"><textarea class="form-control" rows="3"></textarea></td>		
+				</tr>
+				<tr>
+					<td class="col-sm-1" align="left">Phone: </td>
+					<td class="col-sm-3" align="left" id="s_phone"><input type="text" class="form-control"></td>
+					<td class="col-sm-1" align="left">Phone: </td>
+					<td class="col-sm-3" align="left" id="sh_phone"><input type="text" class="form-control"></td>	
+					<td class="col-sm-1" align="left">Phone: </td>
+					<td class="col-sm-3" align="left" id="b_phone"><input type="text" class="form-control"></td>			
+				</tr>				
+			</tbody>
+		</table>
+		</div>
+		<br><hr>
+		<div>
+			<b>Add Item</b><br>
+			<table class="table form-inline pform pformItem">
+				<tbody>
+					<tr>
+						<td class="col-sm-2" align="left">Choose Item: </td>
+						<td class="col-sm-2" align="left" id="item"><select class="form-control selectpicker" data-width="fit" data-live-search="true" data-size="5" data-actions-box="true"></select></td>
+						<td class="col-sm-2" align="left">Unit Price: </td>
+						<td class="col-sm-2" align="left" id="item_price"><input type="text" class="form-control"></td>							
+						<td class="col-sm-2" align="left">Quantity: </td>
+						<td class="col-sm-2" align="left" id="item_qty"><input type="number" class="form-control"></td>	
+						<td class="col-sm-2" align="left"><button class="btn btn-success btn-sm pull-right" id="add_item">Add To Cart</button></td>	
+						<td class="col-sm-2" align="center"><a href="#" data-toggle="tooltip" data-html="true" data-placement="right"><span class="glyphicon glyphicon-info-sign hidden item-info itemInfo"></span></a></td>			
+					</tr>
+				</tbody>	
+			</table>		
+		</div>
+		<hr>
+		<div>
+			<button class="btn btn-sm btn-warning pull-right fixAll">Fix all Excess Inv.</button><br><br>
+			<b>Item Cart</b>
+			<br>
+			<table class="table form-inline" id="cart">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Item Kind</th>
+						<th>Item Code</th>
+						<th>Item Detail</th>
+						<th>Unit Price</th>
+						<th>Quantity</th>
+						<th>Adjusted Quantity</th>
+						<th>Total Price</th>
+					</tr>	
+				</thead>
+				<tbody id="tbody-cart">
+					<tr>			
+					</tr>
+				</tbody>	
+			</table>	
+		</div>
+		
+		<div class="modal fade" id="myModal" role="dialog">
+    		<div class="modal-dialog modal-lg">
+      		<!-- Modal content-->
+      			<div class="modal-content">
+        			<div class="modal-body">
+         				 <div class="panel panel-danger">
+     						 <div class="panel-heading">Excess Inventory Ordered
+     						 	<button type="button" class="close" data-dismiss="modal">&times;</button>
+     						 </div>
+      						 <div class="panel-body">
+      						 	<table class="table form-inline table-bordered stats">
+      						 		<thead>
+      						 			<tr>
+      						 				<th>Item Code</th>
+      						 				<th>Total Stock</th>
+      						 				<th>Expected Stock</th>
+      						 				<th>Ordered Qty</th>
+      						 				<th>Adjusted Qty</th>
+      						 				<th>Max Stock</th>
+      						 				<th class="warning">Excess Inventory</th>      						 				
+      						 			</tr>
+      						 		</thead>
+      						 		<tbody>
+      						 		</tbody>
+      						 	</table>
+      						 	<hr>
+								<h4>Enter new values :</h4>
+      						 	<table class="table form-inline pInfo pform" style="width:50%;">
+									<tbody class="">
+										<tr>
+											<td class="col-sm-2">Order Qty: </td>
+											<td class="col-sm-1 verySm" align="left" id="orderQty"><input type="text" class="form-control"></td>
+											<td class="col-sm-2">Adjusted Qty: </td>
+											<td class="col-sm-1 verySm" align="left" id="adjustedQty"><input type="text" class="form-control"></td>		
+										</tr>
+									</tbody>
+								</table>
+								<button class="btn btn-sm btn-primary updateQ">Update</button>
+      						 </div>
+    					</div>
+        			</div>
+      			</div>
+      
+   		 	</div>
+  		</div>	
+  		
+  		<div class="modal fade" id="allModal" role="dialog">
+    		<div class="modal-dialog modal-lg">
+      		<!-- Modal content-->
+      			<div class="modal-content">
+        			<div class="modal-body">
+         				 <div class="panel panel-danger">
+     						 <div class="panel-heading">Excess Inventory Ordered
+     						 	<button type="button" class="close" data-dismiss="modal">&times;</button>
+     						 </div>
+      						 <div class="panel-body">
+      						 	<table class="table form-inline table-bordered stats">
+      						 		<thead>
+      						 			<tr>
+      						 				<th></th>
+      						 				<th>Item Code</th>
+      						 				<th>In-hand Stock</th>
+      						 				<th>Expected Stock</th>
+      						 				<th>Ordered Qty</th>
+      						 				<th>Adjusted Qty</th>
+      						 				<th>Max Stock</th>
+      						 				<th class="warning">Excess Inventory</th>   
+      						 				<th>Suggested Order Qty</th>
+      						 				<th>Suggested Adjustment</th>   						 				
+      						 			</tr>
+      						 		</thead>
+      						 		<tbody>
+      						 		</tbody>
+      						 	</table>
+      						 	<hr>
+								<button class="btn btn-sm btn-primary updateS">Update Selected</button>  <button class="btn btn-sm btn-primary updateA">Update All</button>
+								
+      						 </div>
+    					</div>
+        			</div>
+      			</div>
+      
+   		 	</div>
+  		</div>	
+  		
+	</div>
+	<script src="js/purchase_form.js"></script>
+</body>
+</html>

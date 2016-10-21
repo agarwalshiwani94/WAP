@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="lib/jquery.js"></script>
+<link href="css/bootstrap.css" rel="stylesheet" />
+<script src="lib/bootstrap.js"></script>
+<script src="lib/alasql.js"></script>
+<script src="lib/purl.js"></script>
+<script src="js/db.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
+
+<meta charset="utf-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="viewport" content="width=device-width">
+<title>COMPANY</title>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand">COMPANY</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="index.html">Inventory Management</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>
+							Settings <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a onclick="window.location.reload(true);"><span
+									class="glyphicon glyphicon-refresh"></span> Reload</a></li>
+							<li><a onclick="DB.init();"><span
+									class="glyphicon glyphicon-repeat"></span> Init DB</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a onclick="DB.remove();"><span
+									class="glyphicon glyphicon-trash"></span> Delete DB</a></li>
+						</ul></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<div class="container">
+
+		<!-- Bread crumbs -->
+		<ol class="breadcrumb">
+			<li><a href="index.html">Inventory List</a></li>
+			<li class="active"><span>Detail</span></li>
+		</ol>
+
+		<!-- Abstract -->
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Item Code</th>
+					<td id="code"></td>
+				</tr>
+				<tr>
+					<th>Maker</th>
+					<td id="maker"></td>
+				</tr>
+				<tr>
+					<th>Detail</th>
+					<td id="detail"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<hr>
+
+		<ul class="nav nav-tabs" id="tabsItem">
+			<li class="active"><a href="#availability" data-toggle="tab"><span
+					class="glyphicon glyphicon-info-sign"></span> Item Availability</a></li>
+			<li><a href="#transactions" data-toggle="tab"><span
+					class="glyphicon glyphicon-usd"></span> Transaction History</a></li>
+			<li><a href="#optimization" data-toggle="tab"><span
+					class="glyphicon glyphicon-edit"></span> Optimization</a></li>
+			<li><a href="#reports" data-toggle="tab"><span
+					class="glyphicon glyphicon-stats"></span> Reports</a></li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div class="tab-pane active" id="availability">
+				<br>
+				<div>
+					<label>Warehouse</label> 
+					<select id="q1" class="form-control selectpicker" data-width="fit">
+						<option value="0">All</option>
+					</select>
+					<button class="btn btn-primary btn-sm" id="searchB">
+						<span class="glyphicon glyphicon-search"></span> Search
+					</button>
+				</div>
+				<br>
+				<table class="table table-condensed">
+					<thead>
+						<tr>
+							<th>Warehouse</th>
+							<th>Price</th>
+							<th>Total In Stock</th>
+							<th>Available</th>
+							<th>On Order</th>
+							<th>Damaged</th>
+							<th>Expected</th>
+							<th>Unit</th>
+						</tr>
+					</thead>
+					<tbody id="tbody-stocks"></tbody>
+				</table>	
+			</div>
+			<div class="tab-pane"id="transactions">
+			    <br>
+			    <div>
+					<label>Warehouse</label> 
+					<select id="q2" class="form-control selectpicker" data-width="fit">
+						<option value="0">All</option>
+					</select>
+					<button class="btn btn-primary btn-sm" id="searchB2">
+						<span class="glyphicon glyphicon-search"></span> Search
+					</button>
+				</div>
+				<br>
+				<table class="table table-condensed">
+					<thead>
+						<tr>
+							<th>Transaction Id</th>
+							<th>Warehouse</th>
+							<th>Date</th>
+							<th>Quantity</th>
+							<th>Memo</th>
+						</tr>
+					</thead>
+					<tbody id="tbody-transactions"></tbody>
+				</table>	
+			</div>
+			<div class="tab-pane"id="optimization">
+			
+			</div>
+			<div class="tab-pane"id="reports">
+			
+			</div>
+		</div>
+		
+	</div>
+	<script src="js/item.js"></script>
+</body>
+</html>
